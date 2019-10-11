@@ -25,6 +25,7 @@ export const createVariable = async (body) => {
 };
 
 export const getAllVariables = async () => {
+
     try {
         var variables = await Variable.find();
         return {
@@ -40,17 +41,10 @@ export const getAllVariables = async () => {
 };
 
 export const updateVariable = async (id, body, isAdmin) => {
-    if (!id) {
-        return { resStatus: 401, error: "Request id missing!" };
-    }
-
-    if (!body) {
-        return { resStatus: 401, error: "Request body missing!" };
-    }
-
+    
     try {
         var variable = await Variable.findById(id);
-        if( isAdmin )
+        if (isAdmin)
             variable.variableName = body.variableName;
 
         variable.category = body.category;
@@ -75,7 +69,8 @@ export const updateVariable = async (id, body, isAdmin) => {
     }
 };
 
-export const deleteVariable = async ( id ) => {
+export const deleteVariable = async (id) => {
+
     try {
         var variable = await Variable.findByIdAndDelete(id);
         return {

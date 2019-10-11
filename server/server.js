@@ -26,4 +26,8 @@ app.use(contextPath + '/admin', adminRouter);
 app.use(contextPath + '/contributor', contributorRouter);
 app.use(contextPath + '/viewer', viewerRouter);
 
+app.use(function(req,res){
+  res.status(404).send({"resStatus": 404, "data": "invalid url"});
+});
+
 app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
