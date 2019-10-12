@@ -6,11 +6,11 @@ const api = axios.create(
     }
 );
 
-export const insertVariable = payload => api.post('/admin/variable', payload);
-export const getAllVariables = () => api.get('/common/variables');
-export const adminUpdateVariableById = (id, payload) => api.put('/admin/variable/${id}', payload);
-export const contributorUpdateVariableById = (id, payload) => api.put('/contributor/variable/${id}', payload);
-export const deleteVariableById = id => api.delete('/admin/variable/${id}');
+export const insertVariable = payload => api.post(`/admin/variable`, payload);
+export const getAllVariables = () => api.get(`/common/variables`);
+export const adminUpdateVariableById = (id, payload) => api.put(`/admin/variable/${id}`, payload);
+export const contributorUpdateVariableById = (id, payload) => api.put(`/contributor/variable/${id}`, payload);
+export const deleteVariableById = id => api.delete(`/admin/variable/${id}`);
 
 const apis = {
     insertVariable,
