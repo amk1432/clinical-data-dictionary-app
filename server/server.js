@@ -1,7 +1,7 @@
 import express from 'express';
 import adminRouter from './routes/admin';
 import contributorRouter from './routes/contributor';
-import viewerRouter from './routes/viewer';
+import commonRouter from './routes/common';
 import db from './db/mongo';
 import cors from 'cors';
 
@@ -24,7 +24,7 @@ var contextPath = "/clinical-data-dictionary/api";
 
 app.use(contextPath + '/admin', adminRouter);
 app.use(contextPath + '/contributor', contributorRouter);
-app.use(contextPath + '/common', viewerRouter);
+app.use(contextPath + '/common', commonRouter);
 
 app.use(function(req,res){
   res.status(404).send({"resStatus": 404, "data": "invalid url"});
