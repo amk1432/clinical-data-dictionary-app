@@ -28,8 +28,48 @@ class DataModal extends Component {
     }
 
     handleVariableNameChange = event => {
-        const name = event.target.value;
-        this.setState({ variableName: name });
+        const newVal = event.target.value;
+        this.setState({ variableName: newVal });
+    }
+
+    handleCategoryChange = event => {
+        const newVal = event.target.value;
+        this.setState({ category: newVal });
+    }
+
+    handleCrfDataTypeChange = event => {
+        const newVal = event.target.value;
+        this.setState({ crfDataType: newVal });
+    }
+
+    handleDescriptionChange = event => {
+        const newVal = event.target.value;
+        this.setState({ description: newVal });
+    }
+
+    handleValueLowerLimitChange = event => {
+        const newVal = event.target.value;
+        this.setState({ valueLowerLimit: newVal });
+    }
+
+    handleValueUpperLimitChange = event => {
+        const newVal = event.target.value;
+        this.setState({ valueUpperLimit: newVal });
+    }
+
+    handleIsRequiredChange = event => {
+        const newVal = event.target.value;
+        this.setState({ isRequired: newVal });
+    }
+
+    handleUnitsChange = event => {
+        const newVal = event.target.value;
+        this.setState({ units: newVal });
+    }
+
+    handleFormNameChange = event => {
+        const newVal = event.target.value;
+        this.setState({ formName: new Array(newVal) });
     }
 
     render() {
@@ -63,20 +103,28 @@ class DataModal extends Component {
 
                                 <div className="form-group col-md-6">
                                     <label htmlFor="category">Category</label>
-                                    <select id="category" className="form-control">
-                                        <option>Calculated</option>
-                                        <option selected>Original</option>
-                                        <option>Derived</option>
+                                    <select
+                                        id="category"
+                                        className="form-control"
+                                        onChange={this.handleCategoryChange}
+                                        value={this.props.modalFormData.category}>
+                                        <option value="Calculated">Calculated</option>
+                                        <option value="Original">Original</option>
+                                        <option value="Derived">Derived</option>
                                     </select>
                                 </div>
 
                                 <div className="form-group col-md-6">
                                     <label htmlFor="crfDataType">DataType</label>
-                                    <select id="crfDataType" className="form-control">
-                                        <option>Number</option>
-                                        <option selected>Text</option>
-                                        <option>Date</option>
-                                        <option>Time</option>
+                                    <select
+                                        id="crfDataType"
+                                        className="form-control"
+                                        onChange={this.handleCrfDataTypeChange}
+                                        value={this.props.modalFormData.crfDataType}>
+                                        <option value="Number">Number</option>
+                                        <option value="Text">Text</option>
+                                        <option value="Date">Date</option>
+                                        <option value="Time">Time</option>
                                     </select>
                                 </div>
 
@@ -118,9 +166,15 @@ class DataModal extends Component {
 
                                 <div className="form-group  col-md-6">
                                     <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="isRequired"></input>
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="isRequired"
+                                            onChange={this.handleIsRequiredChange}
+                                            value={this.props.modalFormData.isRequired}
+                                        />
                                         <label className="form-check-label" htmlFor="isRequired"> Required</label>
-                                       
+
                                     </div>
                                 </div>
 
@@ -137,9 +191,14 @@ class DataModal extends Component {
                                 </div>
 
                                 <div className="form-group col-md-6">
-                                    <label htmlFor="formName">Form Name</label>
-                                    <select id="formName" className="form-control" defaultValue="Clinical Data">
+                                    <select
+                                        id="formName"
+                                        className="form-control"
+                                        onChange={this.handleFormNameChange}
+                                        value={this.props.modalFormData.formName}
+                                        multiple = {true}>
                                         <option value="Clinical Data">Clinical Data</option>
+                                        <option value="test">test</option>
                                     </select>
                                 </div>
                             </div>
