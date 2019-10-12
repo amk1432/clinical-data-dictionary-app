@@ -20,6 +20,8 @@ class DataModal extends Component {
             formName: [],
             variableName: ""
         });
+        this.props.modalFormData.variableName = "";
+        this.props.modalFormData.category = "";
         this.props.hideModal();
     }
 
@@ -29,47 +31,56 @@ class DataModal extends Component {
 
     handleVariableNameChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.variableName = newVal;
         this.setState({ variableName: newVal });
     }
 
     handleCategoryChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.category = newVal;
         this.setState({ category: newVal });
     }
 
     handleCrfDataTypeChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.crfDataType = newVal;
         this.setState({ crfDataType: newVal });
     }
 
     handleDescriptionChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.description = newVal;
         this.setState({ description: newVal });
     }
 
     handleValueLowerLimitChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.valueLowerLimit = newVal;
         this.setState({ valueLowerLimit: newVal });
     }
 
     handleValueUpperLimitChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.valueUpperLimit = newVal;
         this.setState({ valueUpperLimit: newVal });
     }
 
     handleIsRequiredChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.isRequired = newVal;
         this.setState({ isRequired: newVal });
     }
 
     handleUnitsChange = event => {
         const newVal = event.target.value;
+        this.props.modalFormData.units = newVal;
         this.setState({ units: newVal });
     }
 
     handleFormNameChange = event => {
-        const newVal = event.target.value;
-        this.setState({ formName: new Array(newVal) });
+        const newVal = new Array(event.target.value);
+        this.props.modalFormData.formName = newVal;
+        this.setState({ formName: newVal });
     }
 
     render() {
@@ -197,6 +208,7 @@ class DataModal extends Component {
                                         onChange={this.handleFormNameChange}
                                         value={this.props.modalFormData.formName}
                                         multiple = {true}>
+                                            <option value="">Select Form Name</option>
                                         <option value="Clinical Data">Clinical Data</option>
                                         <option value="test">test</option>
                                     </select>
