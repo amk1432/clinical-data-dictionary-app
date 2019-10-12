@@ -5,7 +5,7 @@ class DataModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-             category: "",
+            category: "",
             crfDataType: "",
             description: "",
             formName: [],
@@ -14,6 +14,10 @@ class DataModal extends Component {
     }
     hideDataModal = () => {
         this.setState({
+            category: "",
+            crfDataType: "",
+            description: "",
+            formName: [],
             variableName: ""
         });
         this.props.hideModal();
@@ -44,11 +48,101 @@ class DataModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <div className="form-group col-md-6">
-                                <label htmlFor="variableName">Variable Name</label>
-                                <input type="text" className="form-control" id="variableName" placeholder="Variable Name" onChange={this.handleVariableNameChange} value={this.props.modataFormData.category} />
-                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="variableName">Variable Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="variableName"
+                                        placeholder="Variable Name"
+                                        onChange={this.handleVariableNameChange}
+                                        value={this.props.modalFormData.variableName}
+                                    />
+                                </div>
 
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="category">Category</label>
+                                    <select id="category" className="form-control">
+                                        <option>Calculated</option>
+                                        <option selected>Original</option>
+                                        <option>Derived</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="crfDataType">DataType</label>
+                                    <select id="crfDataType" className="form-control">
+                                        <option>Number</option>
+                                        <option selected>Text</option>
+                                        <option>Date</option>
+                                        <option>Time</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="description">Description</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="description"
+                                        placeholder="Description"
+                                        onChange={this.handleDescriptionChange}
+                                        value={this.props.modalFormData.description}
+                                    />
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="valueLowerLimit">Value LowerLimit</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="valueLowerLimit"
+                                        placeholder="Value LowerLimit"
+                                        onChange={this.handleValueLowerLimitChange}
+                                        value={this.props.modalFormData.valueLowerLimit}
+                                    />
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="valueUpperLimit">Value UpperLimit</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="valueUpperLimit"
+                                        placeholder="Value UpperLimit"
+                                        onChange={this.handleValueUpperLimitChange}
+                                        value={this.props.modalFormData.valueUpperLimit}
+                                    />
+                                </div>
+
+                                <div className="form-group  col-md-6">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" id="isRequired"></input>
+                                        <label className="form-check-label" htmlFor="isRequired"> Required</label>
+                                       
+                                    </div>
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="units">Units</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="units"
+                                        placeholder="Units"
+                                        onChange={this.handleUnitsChange}
+                                        value={this.props.modalFormData.units}
+                                    />
+                                </div>
+
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="formName">Form Name</label>
+                                    <select id="formName" className="form-control" defaultValue="Clinical Data">
+                                        <option value="Clinical Data">Clinical Data</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.hideDataModal}>Close</button>

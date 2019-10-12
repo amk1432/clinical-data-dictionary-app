@@ -192,7 +192,7 @@ class Admin extends Component {
 
                 <DataModal
                     modalAction={this.state.modalAction}
-                    modataFormData={this.state.modalFormData} 
+                    modalFormData={this.state.modalFormData} 
                     displayModal={this.state.showModal} 
                     hideModal={this.closeDataModal} 
                     addOrUpdateVariable={this.addOrUpdateVariable}
