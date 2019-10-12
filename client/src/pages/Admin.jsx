@@ -15,14 +15,14 @@ class UpdateVariable extends Component {
         console.log(this.props.id);
         console.log(this.props.payload);
         this.props.showDataModal(this.props.payload);
-      
+
     }
 
 
     render() {
         return (
             <button className="btn btn-sm btn-block btn-outline-secondary py-0" onClick={this.updateVariable}>Update</button>
-            );
+        );
     }
 }
 class DeleteVariable extends Component {
@@ -50,9 +50,15 @@ class Admin extends Component {
             variables: [],
             columns: [],
             isLoading: true,
-            showModal : false,
-            modalAction : "",
-            modalFormData : {}
+            showModal: false,
+            modalAction: "",
+            modalFormData: {
+                category: "",
+               crfDataType: "",
+               description: "",
+               formName: [],
+               variableName: ""
+           }
         }
     }
 
@@ -67,35 +73,45 @@ class Admin extends Component {
 
     setShowModal = (show) => {
         this.setState({
-            showModal : show
+            showModal: show
         })
     }
 
-    setModalAction = ( action )=>{
+    setModalAction = (action) => {
         this.setState({
-            modalAction : action
+            modalAction: action
         })
     }
-    setModalFormData = ( data) =>{
+    setModalFormData = (data) => {
         this.setState({
-            modalFormData : data
+            modalFormData: data
         })
     }
-    openDataModalToAdd = ()=>{
+    openDataModalToAdd = () => {
         this.setShowModal(true);
         this.setModalAction("Add");
     }
 
-    openDataModalToUpdate = (data)=>{
+    openDataModalToUpdate = (data) => {
         this.setShowModal(true);
         this.setModalAction("Update");
         this.setModalFormData(data);
     }
 
-    closeDataModal = () =>{
+    closeDataModal = () => {
         this.setShowModal(false);
         this.setModalAction("");
-        this.setModalFormData({});
+        this.setModalFormData({
+            category: "",
+           crfDataType: "",
+           description: "",
+           formName: [],
+           variableName: ""
+       });
+    }
+
+    addOrUpdateVariable = ( data ) =>{
+        console.log(data);
     }
     render() {
 
@@ -149,7 +165,7 @@ class Admin extends Component {
                 Header: 'Actions',
                 Cell: row => (
                     <div>
-                        <UpdateVariable id={row.original._id} payload={row.original} showDataModal = {this.openDataModalToUpdate}/>
+                        <UpdateVariable id={row.original._id} payload={row.original} showDataModal={this.openDataModalToUpdate} />
                         <DeleteVariable id={row.original._id} />
                     </div>
                 )
@@ -174,7 +190,13 @@ class Admin extends Component {
                     minRows={0}
                 />
 
-                <DataModal modalAction={this.state.modalAction} modataFormData={this.state.modalFormData} displayModal={this.state.showModal} hideModal = {this.closeDataModal} />
+                <DataModal
+                    modalAction={this.state.modalAction}
+                    modataFormData={this.state.modalFormData} 
+                    displayModal={this.state.showModal} 
+                    hideModal={this.closeDataModal} 
+                    addOrUpdateVariable={this.addOrUpdateVariable}
+                />
             </div>
         );
 
