@@ -1,10 +1,10 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/sidebar.css';
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { NavBar, SideBar } from '../components';
 import { Form, Contributor, Admin } from '../pages';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../css/sidebar.css';
 
 function App() {
   return (

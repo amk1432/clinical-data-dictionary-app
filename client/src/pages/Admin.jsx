@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import api from '../api';
+import DataModal from '../components/DataModal';
+
 import 'react-table/react-table.css';
 
 
 class UpdateVariable extends Component {
+
     updateVariable = event => {
         event.preventDefault();
 
         //make api call to update and update the state 
         console.log(this.props.id);
         console.log(this.props.payload);
+        this.props.showDataModal(this.props.payload);
+      
     }
+
 
     render() {
         return (
             <button className="btn btn-sm btn-block btn-outline-secondary py-0" onClick={this.updateVariable}>Update</button>
-        );
+            );
     }
 }
 class DeleteVariable extends Component {
@@ -43,7 +49,10 @@ class Admin extends Component {
         this.state = {
             variables: [],
             columns: [],
-            isLoading: true
+            isLoading: true,
+            showModal : false,
+            modalAction : "",
+            modalFormData : {}
         }
     }
 
@@ -56,6 +65,38 @@ class Admin extends Component {
         })
     }
 
+    setShowModal = (show) => {
+        this.setState({
+            showModal : show
+        })
+    }
+
+    setModalAction = ( action )=>{
+        this.setState({
+            modalAction : action
+        })
+    }
+    setModalFormData = ( data) =>{
+        this.setState({
+            modalFormData : data
+        })
+    }
+    openDataModalToAdd = ()=>{
+        this.setShowModal(true);
+        this.setModalAction("Add");
+    }
+
+    openDataModalToUpdate = (data)=>{
+        this.setShowModal(true);
+        this.setModalAction("Update");
+        this.setModalFormData(data);
+    }
+
+    closeDataModal = () =>{
+        this.setShowModal(false);
+        this.setModalAction("");
+        this.setModalFormData({});
+    }
     render() {
 
         const columns = [
@@ -108,7 +149,7 @@ class Admin extends Component {
                 Header: 'Actions',
                 Cell: row => (
                     <div>
-                        <UpdateVariable id={row.original._id} payload={row.original} />
+                        <UpdateVariable id={row.original._id} payload={row.original} showDataModal = {this.openDataModalToUpdate}/>
                         <DeleteVariable id={row.original._id} />
                     </div>
                 )
@@ -120,7 +161,7 @@ class Admin extends Component {
                 <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mt-3">
                     <h1 className="h2">Admin Console</h1>
                     <div className="btn-toolbar mb-2 mb-md-0">
-                        <button className="btn btn-sm btn-outline-secondary">Add</button>
+                        <button className="btn btn-sm btn-outline-secondary" onClick={this.openDataModalToAdd}>Add</button>
                     </div>
                 </div>
 
@@ -132,6 +173,8 @@ class Admin extends Component {
                     showPageSizeOptions={true}
                     minRows={0}
                 />
+
+                <DataModal modalAction={this.state.modalAction} modataFormData={this.state.modalFormData} displayModal={this.state.showModal} hideModal = {this.closeDataModal} />
             </div>
         );
 
