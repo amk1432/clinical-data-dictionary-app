@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
   res.send('Welcome to Clinical Data Dictionary App!')
 });
 
-var contextPath = "/clinical-data-dictionary";
+var contextPath = "/clinical-data-dictionary/api";
 
 app.use(contextPath + '/admin', adminRouter);
 app.use(contextPath + '/contributor', contributorRouter);
-app.use(contextPath + '/viewer', viewerRouter);
+app.use(contextPath + '/common', viewerRouter);
 
 app.use(function(req,res){
   res.status(404).send({"resStatus": 404, "data": "invalid url"});
