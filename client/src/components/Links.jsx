@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class Links extends Component {
     render() {
         return (
             <ul className="nav flex-column">
                 <li className="nav-item">
-                    <Link to="/form" className="nav-link">
+                    <NavLink to="/form" className="nav-link" activeStyle={{ color: '#007bff' }}>
                         Form
-                            </Link>
+                            </NavLink>
                 </li>
                 <li className="nav-item">
 
-                    <Link to="/contributor" className="nav-link">
+                    <NavLink to="/contributor" className="nav-link" activeStyle={{ color: '#007bff' }}>
                         Contributor
-                            </Link>
+                            </NavLink>
                 </li>
                 <li className="nav-item">
 
-                    <Link to="/admin" className="nav-link">
+                    <NavLink to="/admin" className="nav-link" activeStyle={{ color: '#007bff' }}>
                         Admin
-                            </Link>
+                            </NavLink>
                 </li>
 
             </ul>
