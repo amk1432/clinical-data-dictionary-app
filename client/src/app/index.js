@@ -15,6 +15,7 @@ function App() {
           <SideBar />
           <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
             <Switch>
+            <Route path="/" exact component={Form} />
               <Route path="/form" exact component={Form} />
               <Route path="/contributor" exact component={Contributor} />
               <Route path="/admin" exact component={() => <Admin  role="admin" roleName="Admin"/> } />
