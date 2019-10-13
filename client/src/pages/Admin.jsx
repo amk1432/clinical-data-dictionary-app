@@ -241,10 +241,10 @@ class Admin extends Component {
 
     removeVariableState = (id) => {
         console.log(this.state);
-        var updatedVariables = this.state.variables.filter(function(variable) { 
+        var updatedVariables = this.state.variables.filter(function (variable) {
             return variable._id !== id
         });
-        this.setState({variables: updatedVariables});
+        this.setState({ variables: updatedVariables });
     }
 
     openDataModalToAdd = () => {
@@ -331,6 +331,11 @@ class Admin extends Component {
         }
     }
 
+    getDeleteVariableButton = (row) =>{
+        if(this.props.role === "admin")
+        return <DeleteVariable id={row.original._id} name={row.original.variableName} callRemoveVariableFromState={this.removeVariableState} />
+                        
+    }
     render() {
         const columns = [
             {
@@ -383,7 +388,8 @@ class Admin extends Component {
                 Cell: row => (
                     <div>
                         <UpdateVariable id={row.original._id} payload={row.original} showDataModal={this.openDataModalToUpdate} />
-                        <DeleteVariable id={row.original._id} name={row.original.variableName} callRemoveVariableFromState={this.removeVariableState}/>
+                        {this.getDeleteVariableButton(row)}
+                        
                     </div>
                 )
             }
@@ -393,13 +399,21 @@ class Admin extends Component {
             display: this.state.showModal ? "block" : "none"
         };
 
+        let addButton;
+        let variableNameReadOnly = true;
+       if (this.props.role === "admin") {
+            addButton = <div className="btn-toolbar mb-2 mb-md-0">
+                <button className="btn btn-sm btn-outline-secondary" onClick={this.openDataModalToAdd}>Add</button>
+            </div>;
+        variableNameReadOnly = false;
+
+        }
         return (
             <div>
                 <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mt-3">
-                    <h1 className="h2">Admin Console</h1>
-                    <div className="btn-toolbar mb-2 mb-md-0">
-                        <button className="btn btn-sm btn-outline-secondary" onClick={this.openDataModalToAdd}>Add</button>
-                    </div>
+                    <h1 className="h2">{this.props.roleName} Console</h1>
+                    {addButton}
+
                 </div>
 
                 <ReactTable
@@ -431,6 +445,7 @@ class Admin extends Component {
                                             placeholder="Variable Name"
                                             onChange={this.handleInputChange}
                                             value={this.state.variableName}
+                                            readOnly={variableNameReadOnly}
                                         />
                                     </div>
 

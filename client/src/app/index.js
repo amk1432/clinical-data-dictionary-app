@@ -17,7 +17,7 @@ function App() {
             <Switch>
               <Route path="/form" exact component={Form} />
               <Route path="/contributor" exact component={Contributor} />
-              <Route path="/admin" exact component={Admin} />
+              <Route path="/admin" exact component={() => <Admin  role="admin" roleName="Admin"/> } />
             </Switch>
           </main>
         </div>
