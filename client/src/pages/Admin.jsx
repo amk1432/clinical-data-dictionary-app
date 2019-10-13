@@ -22,9 +22,10 @@ class DeleteVariable extends Component {
         event.preventDefault();
 
         console.log(this.props.id);
-        if (window.confirm(` Do you want to remove the variable  ${this.props.id} permanently?`)) {
+        if (window.confirm(`Do you want to remove the variable ${this.props.name} permanently?`)) {
             api.deleteVariableById(this.props.id);
             //remove the data from state
+            this.props.callRemoveVariableFromState(this.props.id);
         }
     }
 
@@ -47,15 +48,14 @@ class Admin extends Component {
 
             variableId: "",
             variableName: "",
-            category: "",
-            crfDataType: "",
+            category: "Calculated",
+            crfDataType: "Number",
             description: "",
             valueLowerLimit: 0,
             valueUpperLimit: 0,
             isRequired: false,
             units: "",
-            formName: []
-
+            formName: ["Clinical Data"]
         }
     }
 
@@ -180,13 +180,13 @@ class Admin extends Component {
             if (data.hasOwnProperty('category')) {
                 this.setCategory(data.category);
             } else {
-                this.setCategory("");
+                this.setCategory("Calculated");
             }
 
             if (data.hasOwnProperty('crfDataType')) {
                 this.setCrfDataType(data.crfDataType);
             } else {
-                this.setCrfDataType("");
+                this.setCrfDataType("Number");
             }
 
             if (data.hasOwnProperty('description')) {
@@ -222,12 +222,12 @@ class Admin extends Component {
             if (data.hasOwnProperty('formName')) {
                 this.setFormName(data.formName);
             } else {
-                this.setFormName([]);
+                this.setFormName(["Clinical Data"]);
             }
         }
     }
 
-    updateVariableState(id, updatedVariable) {
+    updateVariableState = (id, updatedVariable) => {
         var index = this.state.variables.findIndex(x => x._id === id);
         if (index !== -1)
             this.setState({
@@ -237,6 +237,14 @@ class Admin extends Component {
                     ...this.state.variables.slice(index + 1)
                 ]
             });
+    }
+
+    removeVariableState = (id) => {
+        console.log(this.state);
+        var updatedVariables = this.state.variables.filter(function(variable) { 
+            return variable._id !== id
+        });
+        this.setState({variables: updatedVariables});
     }
 
     openDataModalToAdd = () => {
@@ -292,7 +300,6 @@ class Admin extends Component {
         else if (id === "formName") {
             this.setFormName(new Array(value));
         }
-
     }
 
     addOrUpdateVariable = () => {
@@ -376,7 +383,7 @@ class Admin extends Component {
                 Cell: row => (
                     <div>
                         <UpdateVariable id={row.original._id} payload={row.original} showDataModal={this.openDataModalToUpdate} />
-                        <DeleteVariable id={row.original._id} />
+                        <DeleteVariable id={row.original._id} name={row.original.variableName} callRemoveVariableFromState={this.removeVariableState}/>
                     </div>
                 )
             }
